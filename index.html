@@ -31,7 +31,7 @@ nav a:hover,nav a.on{opacity:1;color:var(--ac)}
 .btn:hover{background:var(--fg);color:var(--bg)}
 .btn.pri{background:var(--ac);border-color:var(--ac);color:#0c0c0d}
 .btn.pri:hover{background:var(--fg);border-color:var(--fg)}
-/* placeholder / портфолио/media/extra_dodiki */
+/* placeholder / media */
 .ph{position:relative;width:100%;background:linear-gradient(var(--a,135deg),#1b1b1c,#0f0f10 60%,#202021);overflow:hidden}
 .ph .lab{position:absolute;left:12px;bottom:10px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
 .ph .tc{position:absolute;right:12px;top:10px;font-size:10px;letter-spacing:.1em;color:var(--mute);font-variant-numeric:tabular-nums}
@@ -134,9 +134,9 @@ section{padding:clamp(70px,10vw,150px) var(--pad) 0}
 /* reveal */
 .rv{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
 .rv.in{opacity:1;transform:none}
-@портфолио/media/extra_dodiki (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
 /* tablet */
-@портфолио/media/extra_dodiki(max-width:1000px){
+@media(max-width:1000px){
  .hero .vid{grid-column:3/13}.hero h1{grid-column:1/13}
  .vgrid{grid-template-columns:repeat(3,1fr)}.vgrid .card:nth-child(n){margin-top:0}.vgrid .card:nth-child(3n+2){margin-top:40px}
  .dirs{grid-template-columns:1fr}
@@ -146,7 +146,7 @@ section{padding:clamp(70px,10vw,150px) var(--pad) 0}
  .gal.v{grid-template-columns:repeat(2,1fr)}
 }
 /* mobile */
-@портфолио/media/extra_dodiki(max-width:680px){
+@media(max-width:680px){
  .burger{display:block}
  nav{position:fixed;inset:0;background:var(--bg);flex-direction:column;justify-content:center;gap:10px;padding:var(--pad);transform:translateY(-100%);transition:transform .45s cubic-bezier(.7,0,.2,1)}
  nav.open{transform:none}
@@ -194,7 +194,7 @@ const SITE={
 };
 /* video: ссылка на .mp4 / YouTube / Vimeo; poster: ссылка на обложку; cat — категория (фильтр строится сам, пустые не показываются) */
 const VERT=[
- {t:"[Название проекта]",cat:"Бренды",role:"[Моя роль]",video:"портфолио/extra_dodiki.mp4",poster:"портфолио/media/extra_dodiki/extra_dodiki.jpg",year:"",desc:"",gallery:[]},
+ {t:"[Название проекта]",cat:"Бренды",role:"[Моя роль]",video:"портфолио/extra_dodiki.mp4",poster:"портфолио/extra_dodiki.jpg",year:"",desc:"",gallery:[]},
  {t:"[Название проекта]",cat:"Эксперты",role:"[Моя роль]",video:"",poster:""},
  {t:"[Название проекта]",cat:"Лайфстайл",role:"[Моя роль]",video:"",poster:""},
  {t:"[Название проекта]",cat:"Мероприятия",role:"[Моя роль]",video:"",poster:""},
@@ -218,8 +218,8 @@ const app=$("#app");
 $("#logo").textContent=SITE.name;
 const href=(u,f)=>u||f;
 
-/* портфолио/media/extra_dodiki */
-function портфолио/media/extra_dodiki(it,ratio,i,tc){
+/* media */
+function media(it,ratio,i,tc){
  const a=(i*47+120)%360;
  const inner=it.poster?`<img src="${esc(it.poster)}" alt="${esc(it.t)}" loading="lazy">`:`<span class="lab">${it.video?"":"[Видео] · "}[Обложка]</span>`;
  return `<div class="ph ${ratio}" style="--a:${a}deg">${inner}<span class="tc">${String(i+1).padStart(2,"0")} / ${tc||"00:00"}</span></div>`;
@@ -228,12 +228,12 @@ const num=n=>String(n+1).padStart(2,"0");
 function vCard(it,i,mode){
  const link=mode==="page"?"":`data-play="vert-${i}"`;
  return `<article class="card rv" data-cat="${esc(it.cat)}" ${link} ${link?'tabindex="0" role="button"':''}>
- <div style="position:relative">${портфолио/media/extra_dodiki(it,"r916",i)}<span class="play"></span></div>
+ <div style="position:relative">${media(it,"r916",i)}<span class="play"></span></div>
  <div class="meta"><div><h3>${esc(it.t)}</h3><span class="tag">${esc(it.cat)} · ${esc(it.role)}</span></div><a class="tag arrow" href="#p-vert-${i}" aria-label="Страница кейса">↗</a></div></article>`;
 }
 function fCard(it,i,big){
  return `<a class="card rv" href="#p-film-${i}" data-cat="${esc(it.cat)}">
- <div style="position:relative">${портфолио/media/extra_dodiki(it,"r169",i)}<span class="play"></span></div>
+ <div style="position:relative">${media(it,"r169",i)}<span class="play"></span></div>
  <div class="meta"><div><h3>${esc(it.t)}</h3><span class="tag">${esc(it.cat)} · ${esc(it.role)}${it.year?" · "+esc(it.year):""}</span></div><span class="arrow">→</span></div></a>`;
 }
 function feat(k,n){
@@ -267,10 +267,10 @@ function home(){
  <section id="dirs" class="wrap"><div class="sh"><h2 class="rv">Два мира,<br>один взгляд</h2><span class="tag">01 — Направления</span></div>
  <div class="dirs">
   <a class="dir card rv" href="#vertical"><div><span class="tag">Vertical content · 9:16</span><h3>Вертикальный контент</h3><p>Контент, который удерживает внимание</p></div>
-   <div class="strip">${fv.map((it,i)=>портфолио/media/extra_dodiki(it,"r916",i)).join("")}</div>
+   <div class="strip">${fv.map((it,i)=>media(it,"r916",i)).join("")}</div>
    <div class="go"><span>Смотреть вертикальные работы</span><span class="arrow">→</span></div></a>
   <a class="dir film card rv" href="#film"><div><span class="tag">Film / Horizontal projects · 16:9</span><h3>Горизонтальные проекты</h3><p>Истории, образы и визуальные миры</p></div>
-   <div class="strip">${портфолио/media/extra_dodiki(FILM[0],"r169",0)}</div>
+   <div class="strip">${media(FILM[0],"r169",0)}</div>
    <div class="go"><span>Смотреть проекты</span><span class="arrow">→</span></div></a>
  </div></section>
 
@@ -312,7 +312,7 @@ function detail(type,i){
  return `<div class="case"><a class="tag" href="#${V?"vertical":"film"}">← ${V?"Вертикальный контент":"Горизонтальные проекты"}</a>
  <h1 class="rv in">${esc(it.t)}</h1>
  <div class="facts"><div><span class="tag">Формат</span><b>${esc(it.cat)}</b></div><div><span class="tag">Моя роль</span><b>${esc(it.role)}</b></div><div><span class="tag">Год</span><b>${esc(it.year||"—")}</b></div></div>
- <div class="card" data-play="${type}-${i}" tabindex="0" role="button" style="cursor:pointer;${V?"max-width:380px":""}"><div style="position:relative">${портфолио/media/extra_dodiki(it,V?"r916":"r169",i)}<span class="play"></span></div></div>
+ <div class="card" data-play="${type}-${i}" tabindex="0" role="button" style="cursor:pointer;${V?"max-width:380px":""}"><div style="position:relative">${media(it,V?"r916":"r169",i)}<span class="play"></span></div></div>
  <div class="cols"><div><span class="tag">${V?"Задача":"О проекте"}</span><h3>Задача и идея</h3><p>${esc(it.desc||"[Краткое описание проекта и поставленной задачи]")}</p></div>
  <div><span class="tag">Мой вклад</span><h3>Что сделал я</h3><p>${esc(it.contrib||"[Описание вашего вклада и зоны ответственности]")}</p>${it.team?`<p style="margin-top:14px" class="tag">Команда: ${esc(it.team)}</p>`:""}</div></div>
  <span class="tag">${V?"Дополнительные видео":"Кадры и материалы со съёмок"}</span>
